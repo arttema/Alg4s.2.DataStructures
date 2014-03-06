@@ -27,7 +27,7 @@ import java.util.Iterator;
  * each iterator must maintain its own random order.
  */
 public class RandomizedQueue<Item> implements Iterable<Item> {
-    private Item[] queue = (Item[]) new Object[10];
+    private Item[] queue = (Item[]) new Object[1];
     private int last = 0;
 
     // construct an empty randomized queue
@@ -49,13 +49,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (item == null) throw new NullPointerException();
 
         if (last == queue.length) resize(queue.length * 2);
-        queue[++last] = item;
+        queue[last++] = item;
     }
 
     // delete and return a random item
     public Item dequeue() {
         if (size() == 0) throw new java.util.NoSuchElementException();
-        int indexToDequeue = StdRandom.uniform(last + 1);
+        int indexToDequeue = StdRandom.uniform(last);
         Item itemToDequeue = queue[indexToDequeue];
         queue[indexToDequeue] = queue[last];
         queue[last--] = null; //avoid loitering
@@ -66,7 +66,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // return (but do not delete){} a random item
     public Item sample() {
         if (size() == 0) throw new java.util.NoSuchElementException();
-        int randomIndex = StdRandom.uniform(last + 1);
+        int randomIndex = StdRandom.uniform(last);
         return queue[randomIndex];
     }
 

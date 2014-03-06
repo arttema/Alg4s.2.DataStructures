@@ -36,12 +36,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // is the queue empty?
     public boolean isEmpty() {
-        return queue.length == 0;
+        return last == 0;
     }
 
     // return the number of items on the queue
     public int size() {
-        return queue.length;
+        return last;
     }
 
     // add the item
@@ -57,9 +57,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (size() == 0) throw new java.util.NoSuchElementException();
         int indexToDequeue = StdRandom.uniform(last);
         Item itemToDequeue = queue[indexToDequeue];
-        queue[indexToDequeue] = queue[last];
-        queue[last--] = null; //avoid loitering
-
+        queue[indexToDequeue] = queue[last-1];
+        queue[last-1] = null; //avoid loitering
+        last--;
         return itemToDequeue;
     }
 
@@ -90,24 +90,27 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
     private class ExampleIterator implements Iterator {
 
-        private Item[] iterationQueue = queue;
-        private int elementsInQueue = iterationQueue.length;
+        private Item[] iterationQueue;
+        private int elementsInQueue;
         private ExampleIterator() {
+            iterationQueue = queue;
+            elementsInQueue = size();
         }
 
         @Override
         public boolean hasNext() {
+
             return elementsInQueue != 0;
         }
 
         @Override
         public Item next() {
             if (hasNext()) {
-                int indexToDequeue = StdRandom.uniform(elementsInQueue + 1);
-                Item itemToDequeue = queue[indexToDequeue];
-                queue[indexToDequeue] = queue[elementsInQueue];
-                queue[elementsInQueue--] = null; //avoid loitering
-
+                int indexToDequeue = StdRandom.uniform(elementsInQueue);
+                Item itemToDequeue = iterationQueue[indexToDequeue];
+                iterationQueue[indexToDequeue] = iterationQueue[elementsInQueue-1];
+                iterationQueue[elementsInQueue-1] = null; //avoid loitering
+                elementsInQueue--;
                 return itemToDequeue;
             } else {
                 throw new java.util.NoSuchElementException();
@@ -133,11 +136,22 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         queue1.dequeue();
         queue1.dequeue();
         queue1.dequeue();
-        queue1.dequeue();
+    //    queue1.dequeue();
         queue1.enqueue(3);
         queue1.enqueue(4);
         queue1.enqueue(StdRandom.uniform(20));
+        queue1.enqueue(StdRandom.uniform(20));
+        queue1.enqueue(StdRandom.uniform(20));
+        queue1.enqueue(StdRandom.uniform(20));
+        queue1.enqueue(StdRandom.uniform(20));
+        queue1.enqueue(StdRandom.uniform(20));
+
         Iterator<Integer> iterator = queue1.iterator();
+        Iterator<Integer> iterator1 = queue1.iterator();
+          while (iterator.hasNext()){
+              System.out.println(iterator.next());
+              if(iterator1.hasNext())System.out.println(iterator1.next());
+          }
     }
 }
 

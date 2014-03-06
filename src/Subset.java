@@ -36,12 +36,18 @@ public class Subset {
             String s = StdIn.readString();
             input[inputSize++] = s;
         }
-        String[] output = new String[inputSize];
-        System.arraycopy(input, 0, output, 0, inputSize);
+        RandomizedQueue<String> queue = new RandomizedQueue<String>();
+        for(int i=0; i<inputSize; i++){
+            queue.enqueue(input[i]);
+        }
+//        String[] output = new String[inputSize];
+//        System.arraycopy(input, 0, output, 0, inputSize);
 
-        StdRandom.shuffle(output);
+//        StdRandom.shuffle(output);
         for(int i=0; i<outputSize; i++){
-            System.out.println(output[i]);
+            System.out.println(queue.dequeue());
         }
     }
 }
+// cd "C:\Users\artemstolpovski\Google Drive\Education\Algorithms I (1)\programming assignments\Week 2\Alg4s.2.DataStructures\out\production\Alg4s.2.DataStructures"
+// java Subset 3 <input.txt

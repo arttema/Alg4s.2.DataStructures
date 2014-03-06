@@ -37,11 +37,11 @@ public class Subset {
             input[inputSize++] = s;
         }
         String[] output = new String[inputSize];
-        System.arraycopy(input, 0, output, 0, output.length);
+        System.arraycopy(input, 0, output, 0, inputSize);
 
-        StdRandom.shuffle(input);
-        for(int i=0; i<inputSize; i++){
-            System.out.println(input[i]);
+        StdRandom.shuffle(output);
+        for(int i=0; i<outputSize; i++){
+            System.out.println(output[i]);
         }
     }
 }
